@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ModelLibrary
 {
-    public class HotDog
-    {
+    public class HotDog : Product
+    {   
         public string flavor { get; set; }
     }
 }

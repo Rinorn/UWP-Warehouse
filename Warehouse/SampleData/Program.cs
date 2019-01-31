@@ -20,7 +20,7 @@ namespace SampleData
                     category = furniture,
                     description = "Black Table",
                     price = 1299,
-                    productNumber = 1,
+                    furProdNumber = 1,
                     weight = 13.22
                 };
                 var johnSnowden = new Member()

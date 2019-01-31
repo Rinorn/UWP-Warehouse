@@ -8,7 +8,6 @@ namespace ModelLibrary
 {
     public class Textile : Product
     {
-        public int productNumber { get; set; }
         public string color { get; set; }
     }
 }

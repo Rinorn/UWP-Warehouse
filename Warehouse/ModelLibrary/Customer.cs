@@ -11,6 +11,7 @@ namespace ModelLibrary
     public class Customer
     {
         [Key]
+        [Required]
         public int customerId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -18,6 +19,8 @@ namespace ModelLibrary
         public int zipCode { get; set; }
         public int areaCode { get; set; }
         public int phoneNumber { get; set; }
-        //public virtual List<Order> orderHistory { get; set; }
+        [Required]
+        public bool isMemeber { get; set; }
+        public virtual List<Category> discounts { get; set; }
     }
 }

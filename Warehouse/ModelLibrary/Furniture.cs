@@ -11,7 +11,6 @@ namespace ModelLibrary
 {
     public class Furniture : Product
     {   
-        public int productNumber { get; set; }
         public double weight { get; set; }
     }
 }

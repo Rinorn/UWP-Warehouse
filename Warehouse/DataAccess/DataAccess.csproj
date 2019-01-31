@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="warehouseContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WarehouseDBInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelLibrary\ModelLibrary.csproj">

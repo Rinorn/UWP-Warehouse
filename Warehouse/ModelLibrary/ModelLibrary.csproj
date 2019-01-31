@@ -42,7 +42,6 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Furniture.cs" />
     <Compile Include="HotDog.cs" />
-    <Compile Include="Member.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

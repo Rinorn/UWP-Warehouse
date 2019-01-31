@@ -10,9 +10,12 @@ namespace ModelLibrary
 {
     public class Order
     {
+
         [Key]
+        [Required]
         public int orderId { get; set; }
         public Customer customer { get; set; }
-        public virtual List<Product> products { get; set; }
+        [Required]
+        public virtual List<Product> Products { get; set; }
     }
 }
