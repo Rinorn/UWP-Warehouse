@@ -30,11 +30,12 @@ namespace WarehouseApplication.Views
             this.InitializeComponent();
         }
 
+        private CustomerViewModel model;
         private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
         public List<long> ordersIdList = new List<long>();
         private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CustomerViewModel model = ViewModel;
+            model = ViewModel;
             model.ClearOrders();
             ordersIdList.Clear();
             try
@@ -58,6 +59,18 @@ namespace WarehouseApplication.Views
 
             }
         }
-        
+
+        private void OnSelectionChanged_OrdersList(object sender, SelectionChangedEventArgs e)
+        {
+            model = ViewModel;
+            if (OrdersList.SelectedItem != null)
+            {
+                Order order = (Order)OrdersList.SelectedItem;
+                if (order.orderId != 0)
+                {
+                    model.GetOrderInfo(order.orderId);
+                }
+            }  
+        }
     }
 }

@@ -101,6 +101,7 @@
     <Compile Include="DataSource\Customers.cs" />
     <Compile Include="DataSource\Orders.cs" />
     <Compile Include="DataSource\Products.cs" />
+    <Compile Include="DataSource\ProductsToOrders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />

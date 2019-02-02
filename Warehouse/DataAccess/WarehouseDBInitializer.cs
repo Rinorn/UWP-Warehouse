@@ -39,7 +39,7 @@ namespace DataAccess
             {
                 categoryId = textiles.categoryId,
                 description = "Red wool",
-                price = 1299,
+                price = 80,
                 itemNumber = 1,
                 color = "Red",
                 inStock = 25
@@ -95,8 +95,11 @@ namespace DataAccess
                 Customers = new List<Customer>() { johnSnowden },
             });
 
-            var prodToOrder = context.ProdToOrders.Add(new ProductToOrder() { prodToOrderId = 1, product = table, prodDescription = table.description, quantity = 5, order = orderOne, orderId = orderOne.orderId});
-           
+            var prodToOrder1 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderOne, orderId = orderOne.orderId});
+            var prodToOrder4 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 19, order = orderOne, orderId = orderOne.orderId });
+            var prodToOrder2 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 1, order = orderTwo, orderId = orderTwo.orderId });
+            var prodToOrder3 = context.ProdToOrders.Add(new ProductToOrder() { product = hDog, prodDescription = hDog.description, quantity = 3, order = orderThree, orderId = orderThree.orderId });
+
 
             base.Seed(context);
         }

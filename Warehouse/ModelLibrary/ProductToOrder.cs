@@ -14,5 +14,5 @@ namespace ModelLibrary
         public int quantity { get; set; }
         public long orderId { get; set; }
         public virtual Order order { get; set; }
-}
+    }
 }

@@ -23,6 +23,10 @@
             x:Name="OrdersViewSource"
             Source="{x:Bind ViewModel.custOrders}">
         </CollectionViewSource>
+        <CollectionViewSource
+            x:Name="ProdToOrderViewSource"
+            Source="{x:Bind ViewModel.dataAsString}">
+        </CollectionViewSource>
  
     </Page.Resources>
     <RelativePanel>
@@ -54,10 +58,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrdersList" RelativePanel.RightOf="membershipList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource OrdersViewSource}}" Background="Bisque">
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrdersList" RelativePanel.RightOf="membershipList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource OrdersViewSource}}" Background="Bisque" SelectionChanged="OnSelectionChanged_OrdersList">
                 <ListView.ItemTemplate >
                     <DataTemplate x:DataType="modelLibrary:Order" >
                         <TextBlock Text="{Binding Path=orderId, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrderInfoList" RelativePanel.RightOf="OrdersList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProdToOrderViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Foreground="Black" FontSize="20"  ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

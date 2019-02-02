@@ -15,6 +15,10 @@ namespace WarehouseApplication.ViewModels
     {
 
         public ObservableCollection<Order> custOrders = new ObservableCollection<Order>();
+
+        public ObservableCollection<ProductToOrder> productToOrders = new ObservableCollection<ProductToOrder>();
+        public ObservableCollection<string> dataAsString = new ObservableCollection<string>();
+        public List<double> prices = new List<double>();
         public CustomerViewModel()
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
@@ -34,8 +38,6 @@ namespace WarehouseApplication.ViewModels
             get => orders;
             set => Set(ref orders, value);
         }
-
-
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
@@ -73,6 +75,58 @@ namespace WarehouseApplication.ViewModels
                     }
                 }
             }
+        }
+
+        public async void GetOrderInfo(long orderId)
+        {
+            ClearCurrentOrderInfoData();
+            var prodToOrder = new ObservableCollection<ProductToOrder>(await DataSource.ProductsToOrders.Instance.GetProductsToOrders());
+            var product = new ObservableCollection<Product>(await DataSource.Products.Instance.GetProducts());
+
+            DetermineProduct(orderId, prodToOrder);
+            DeterminePricePrProd(product);
+            CalculateAndBuildString();
+        }
+
+        public void DetermineProduct(long orderId, ObservableCollection<ProductToOrder> prodToOrder)
+        {
+            foreach (var prodOrder in prodToOrder)
+            {
+                if (prodOrder.orderId == orderId)
+                {
+                    productToOrders.Add(prodOrder);
+                }
+            }
+        }
+
+        public void DeterminePricePrProd(ObservableCollection<Product> product)
+        {
+            foreach (var prod in product)
+            {
+                foreach (var productToOrder in productToOrders)
+                {
+                    if (prod.description.Equals(productToOrder.prodDescription))
+                    {
+                        prices.Add(prod.price);
+                    }
+                }
+            }
+        }
+
+        public void CalculateAndBuildString()
+        {
+            for (int i = 0; i < productToOrders.Count; i++)
+            {
+                double number = productToOrders[i].quantity * prices[i];
+                dataAsString.Add(productToOrders[i].prodDescription + " x" + productToOrders[i].quantity + " UnitPrice: " +
+                              prices[i] + " Total price: " + number);
+            }
+        }
+        public void ClearCurrentOrderInfoData()
+        {
+            productToOrders.Clear();
+            prices.Clear();
+            dataAsString.Clear();
         }
     }   
 }
