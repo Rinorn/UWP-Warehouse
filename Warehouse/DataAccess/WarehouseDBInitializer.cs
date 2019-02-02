@@ -84,10 +84,19 @@ namespace DataAccess
 
             var orderOne = context.Orders.Add(new Order()
             {
-                orderId = 1,
-                customer = new List<Customer>() {johnnyBravo},
-                Products = new List<Product>(){table, hDog, wool}
+                Customers = new List<Customer>() { johnnyBravo },
             });
+            var orderTwo = context.Orders.Add(new Order()
+            {
+                Customers = new List<Customer>() { johnnyBravo },
+            });
+            var orderThree = context.Orders.Add(new Order()
+            {
+                Customers = new List<Customer>() { johnSnowden },
+            });
+
+            var prodToOrder = context.ProdToOrders.Add(new ProductToOrder() { prodToOrderId = 1, product = table, prodDescription = table.description, quantity = 5, order = orderOne, orderId = orderOne.orderId});
+           
 
             base.Seed(context);
         }

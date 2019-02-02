@@ -38,7 +38,7 @@ namespace Warehouse.Data.Api.Controllers
         }
 
         [HttpGet()]
-        [Route("api/Courses/{courseId}/Students")]
+        [Route("api/Categories/{categoryId}/Customer")]
         public async Task<IHttpActionResult> GetCustomer(int categoryid)
         {
             var query = await (from customer in db.Customers

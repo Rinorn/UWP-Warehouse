@@ -16,7 +16,7 @@ namespace WarehouseApplication.DataSource
         /// <summary>
         /// The base URI
         /// </summary>
-        private const string BaseUri = "http://localhost:59571/api/";
+        private const string BaseUri = "http://localhost:59571/api/categories";
 
         /// <summary>
         /// The client

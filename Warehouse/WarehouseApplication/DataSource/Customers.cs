@@ -16,7 +16,7 @@ namespace WarehouseApplication.DataSource
         /// <summary>
         /// The base URI
         /// </summary>
-        private const string BaseUri = "http://localhost:59571/api/";
+        private const string BaseUri = "http://localhost:59571/api/customers";
 
         /// <summary>
         /// The client
@@ -43,6 +43,19 @@ namespace WarehouseApplication.DataSource
             var json = await _client.GetStringAsync("customers").ConfigureAwait(false);
             var customers = JsonConvert.DeserializeObject<Customer[]>(json);
             return customers;
+        }
+
+        public async Task<Customer> GetCustomersOrders(Customer customer)
+        {
+            var json = await _client.GetStringAsync($"customers\\{customer.customerId}/order").ConfigureAwait(false);
+            Order[] orders = JsonConvert.DeserializeObject<Order[]>(json);
+            List<Order> ordr = new List<Order>();
+            foreach (Order s in orders)
+            {
+                ordr.Add(s);
+            }
+            customer.Orders = ordr;
+            return customer;
         }
     }
 }

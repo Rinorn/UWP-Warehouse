@@ -35,7 +35,8 @@ namespace WarehouseApplication.Views
         {
             ProductViewModel model = ViewModel;
 
-            if (e.AddedItems[0] is Category cat) currentCategoryId = model.DeterminCategoryId(cat.CategoryName);
+            if (e.AddedItems[0] is Category cat)
+                currentCategoryId = model.DeterminCategoryId(cat.CategoryName);
 
             model.SelectProducts(currentCategoryId);
 
