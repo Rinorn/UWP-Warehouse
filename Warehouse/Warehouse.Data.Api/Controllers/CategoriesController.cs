@@ -37,6 +37,17 @@ namespace Warehouse.Data.Api.Controllers
             return Ok(category);
         }
 
+        [HttpGet()]
+        [Route("api/Courses/{courseId}/Students")]
+        public async Task<IHttpActionResult> GetCustomer(int categoryid)
+        {
+            var query = await (from customer in db.Customers
+                where customer.discounts.Any(c => c.categoryId == categoryid)
+                select customer).ToListAsync();
+            return Ok(query);
+        }
+
+
         // PUT: api/Categories/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCategory(int id, Category category)

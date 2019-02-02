@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="WarehouseApplication.Views.CustomerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WarehouseApplication.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:WarehouseApplication.ViewModels"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:modelLibrary="using:ModelLibrary"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModels:CustomerViewModel  x:Name="ViewModel" />
+    </Page.DataContext>
+    <Page.Resources>
+        <CollectionViewSource
+            x:Name="CustomerViewSource"
+            Source="{x:Bind ViewModel.Customers}">
+        </CollectionViewSource>
+    </Page.Resources>
+    <RelativePanel>
+        <controls:PageHeader 
+            x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
+            RelativePanel.AlignRightWithPanel="True"
+            RelativePanel.AlignTopWithPanel="True"
+            Text="Character Optimization" >
+        </controls:PageHeader>
+        <ListView BorderThickness="1" BorderBrush="Black" x:Name="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="modelLibrary:Customer" >
+                    <TextBlock Text="{Binding Path=FullName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <RelativePanel RelativePanel.RightOf="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True">
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="CustomerIdList" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Customer" >
+                        <TextBlock  Text="{Binding Path=idAsString, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="membershipList" RelativePanel.RightOf="CustomerIdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate >
+                    <DataTemplate x:DataType="modelLibrary:Customer" >
+                        <TextBlock Text="{Binding Path=isMemeber, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
+    </RelativePanel>
+</Page>

@@ -10,12 +10,13 @@ namespace ModelLibrary
     public class Product
     {
         [Key]
-        public int ID { get; set; }
         [Required]
         public string description { get; set; }
         public int? itemNumber { get; set; }
         public double price { get; set; }
-        public Category category { get; set; }
+        public int categoryId { get; set; }
+        public int inStock { get; set; }
+        public int Sold { get; set; }
         public virtual List<Order> Orders { get; set; }
     }
 }

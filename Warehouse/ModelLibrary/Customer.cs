@@ -21,6 +21,11 @@ namespace ModelLibrary
         public int phoneNumber { get; set; }
         [Required]
         public bool isMemeber { get; set; }
+        public virtual List<Order> Orders { get; set; }
         public virtual List<Category> discounts { get; set; }
+
+        public string FullName { get => $"{firstName} {lastName}"; }
+        public string idAsString { get => $"{customerId}"; }
+        
     }
 }

@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="WarehouseApplication.Views.ProductView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WarehouseApplication.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelLibrary="using:ModelLibrary"
+    xmlns:viewModels="using:WarehouseApplication.ViewModels"
+    xmlns:controls="using:Template10.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <viewModels:ProductViewModel  x:Name="ViewModel" />
+    </Page.DataContext>
+    <Page.Resources>
+        <CollectionViewSource
+            x:Name="CategoryViewSource"
+            Source="{x:Bind ViewModel.Categories}">
+        </CollectionViewSource>
+        <CollectionViewSource
+            x:Name="ProductsViewSource"
+            Source="{x:Bind ViewModel.selectedProducts}">
+        </CollectionViewSource>
+    </Page.Resources>
+
+    <RelativePanel>
+        <controls:PageHeader 
+            x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
+            RelativePanel.AlignRightWithPanel="True"
+            RelativePanel.AlignTopWithPanel="True"
+            Text="Character Optimization" >
+        </controls:PageHeader>
+        <ListView BorderThickness="1" BorderBrush="Black" x:Name="CategoryList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CategoryViewSource}}" Background="Bisque" SelectionChanged="OnSelectedItemChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="modelLibrary:Category" >
+                    <TextBlock Text="{Binding Path=CategoryName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <RelativePanel RelativePanel.RightOf="CategoryList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True">
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Product" >
+                        <TextBlock  Text="{Binding Path=description, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="ItemNumberList" RelativePanel.RightOf="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate >
+                    <DataTemplate x:DataType="modelLibrary:Product" >
+                        <TextBlock Text="{Binding Path=itemNumber, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="StockList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="ItemNumberList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Product" >
+                        <TextBlock Text="{Binding Path=inStock, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView x:Name="SoldList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="StockList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Product" >
+                        <TextBlock Text="{Binding Path=inStock, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
+    </RelativePanel>
+</Page>

@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="Warehouse.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Warehouse"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <RelativePanel>
+        <RelativePanel x:Name="RelativePanelGrid">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="1"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black" Click="ProdBtnClick">
+                    <TextBlock Text="Products" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBlock>
+                </Button>
+                <Button Grid.Column="2"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Black" Click="CusBtnClick">
+                    <TextBlock Text="Customers" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBlock>
+                </Button>
+            </Grid>
+        </RelativePanel>
+        <RelativePanel RelativePanel.Below="RelativePanelGrid" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
+            <Frame x:Name="contentFrame"/>
+        </RelativePanel>
+    </RelativePanel>
+
+</Page>

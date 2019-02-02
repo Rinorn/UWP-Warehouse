@@ -14,8 +14,7 @@ namespace ModelLibrary
         [Key]
         [Required]
         public int orderId { get; set; }
-        public Customer customer { get; set; }
-        [Required]
+        public virtual List<Customer> customer { get; set; }
         public virtual List<Product> Products { get; set; }
     }
 }

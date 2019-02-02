@@ -18,21 +18,33 @@ namespace DataAccess
 
             var table = context.Products.Add(new Furniture()
             {
-                category = furniture,
+                categoryId = furniture.categoryId,
                 description = "Black Table",
                 price = 1299,
                 itemNumber = 1,
-                weight = 13.22
+                weight = 13.22,
+                inStock = 20
             });
 
             var hDog = context.Products.Add(new HotDog()
             {
-                category = hotdog,
+                categoryId = hotdog.categoryId,
                 description = "Bacon hotdog",
                 price = 29.99,
-                flavor = "Bacon"
+                flavor = "Bacon",
+                inStock = 300
             });
-            
+
+            var wool = context.Products.Add(new Textile()
+            {
+                categoryId = textiles.categoryId,
+                description = "Red wool",
+                price = 1299,
+                itemNumber = 1,
+                color = "Red",
+                inStock = 25
+            });
+
 
             var johnSnowden = context.Customers.Add(new Customer()
             {
@@ -73,8 +85,8 @@ namespace DataAccess
             var orderOne = context.Orders.Add(new Order()
             {
                 orderId = 1,
-                customer = johnnyBravo,
-                Products = new List<Product>(){table}
+                customer = new List<Customer>() {johnnyBravo},
+                Products = new List<Product>(){table, hDog, wool}
             });
 
             base.Seed(context);
