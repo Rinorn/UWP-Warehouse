@@ -8,9 +8,9 @@ using ModelLibrary;
 
 namespace DataAccess
 {
-    class WarehouseDBInitializer : DropCreateDatabaseIfModelChanges<warehouseContext>
+    class WarehouseDBInitializer : DropCreateDatabaseIfModelChanges<WarehouseContext>
     {
-        protected override void Seed(warehouseContext context)
+        protected override void Seed(WarehouseContext context)
         {
             var furniture = context.Categories.Add(new Category() { categoryId = 2, name = "Furniture" });
             var hotdog = context.Categories.Add(new Category() { categoryId = 3, name = "Hotdog"});
@@ -23,7 +23,8 @@ namespace DataAccess
                 price = 1299,
                 itemNumber = 1,
                 weight = 13.22,
-                inStock = 20
+                inStock = 20,
+                sold = 4
             });
 
             var hDog = context.Products.Add(new HotDog()
@@ -32,7 +33,8 @@ namespace DataAccess
                 description = "Bacon hotdog",
                 price = 29.99,
                 flavor = "Bacon",
-                inStock = 300
+                inStock = 300,
+                sold = 37
             });
 
             var wool = context.Products.Add(new Textile()
@@ -42,15 +44,19 @@ namespace DataAccess
                 price = 80,
                 itemNumber = 1,
                 color = "Red",
-                inStock = 25
+                inStock = 25,
+                sold = 13
             });
 
+            var discount1 = context.Discounts.Add(new Discount() { categoryId = furniture.categoryId, percentage = 0.25});
+            var discount2 = context.Discounts.Add(new Discount() { categoryId = hotdog.categoryId, percentage = 0.15 });
+            var discount3 = context.Discounts.Add(new Discount() { categoryId = textiles.categoryId, percentage = 0.30 });
 
             var johnSnowden = context.Customers.Add(new Customer()
             {
                 address = "Russland 52",
                 areaCode = 47,
-                discounts = new List<Category>(){furniture, hotdog},
+                discounts = new List<Discount>(){discount1, discount2},
                 firstName = "John",
                 lastName = "Snowden",
                 isMemeber = true,
@@ -63,7 +69,6 @@ namespace DataAccess
             {
                 address = "Russland 52",
                 areaCode = 47,
-                discounts = new List<Category>() {textiles, hotdog, furniture },
                 firstName = "Test",
                 lastName = "Testet",
                 isMemeber = true,
@@ -75,6 +80,7 @@ namespace DataAccess
             {
                 address = "Russland 52",
                 areaCode = 47,
+                discounts = new List<Discount>() { discount3, discount2 },
                 firstName = "Johnny",
                 lastName = "Bravo",
                 phoneNumber = 12345678,
@@ -99,6 +105,7 @@ namespace DataAccess
             var prodToOrder4 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 19, order = orderOne, orderId = orderOne.orderId });
             var prodToOrder2 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 1, order = orderTwo, orderId = orderTwo.orderId });
             var prodToOrder3 = context.ProdToOrders.Add(new ProductToOrder() { product = hDog, prodDescription = hDog.description, quantity = 3, order = orderThree, orderId = orderThree.orderId });
+            var prodToOrder5 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderThree, orderId = orderThree.orderId });
 
 
             base.Seed(context);

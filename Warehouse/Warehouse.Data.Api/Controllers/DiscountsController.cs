@@ -14,44 +14,44 @@ using ModelLibrary;
 
 namespace Warehouse.Data.Api.Controllers
 {
-    public class OrdersController : ApiController
+    public class DiscountsController : ApiController
     {
         private WarehouseContext db = new WarehouseContext();
 
-        // GET: api/Orders
-        public IQueryable<Order> GetOrders()
+        // GET: api/Discounts
+        public IQueryable<Discount> GetDiscounts()
         {
-            return db.Orders;
+            return db.Discounts;
         }
 
-        // GET: api/Orders/5
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> GetOrder(int id)
+        // GET: api/Discounts/5
+        [ResponseType(typeof(Discount))]
+        public async Task<IHttpActionResult> GetDiscount(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            if (order == null)
+            Discount discount = await db.Discounts.FindAsync(id);
+            if (discount == null)
             {
                 return NotFound();
             }
 
-            return Ok(order);
+            return Ok(discount);
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Discounts/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutOrder(int id, Order order)
+        public async Task<IHttpActionResult> PutDiscount(int id, Discount discount)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != order.orderId)
+            if (id != discount.discountId)
             {
                 return BadRequest();
             }
 
-            db.Entry(order).State = EntityState.Modified;
+            db.Entry(discount).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace Warehouse.Data.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrderExists(id))
+                if (!DiscountExists(id))
                 {
                     return NotFound();
                 }
@@ -72,37 +72,36 @@ namespace Warehouse.Data.Api.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Orders
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> PostOrder(Order order)
+        // POST: api/Discounts
+        [ResponseType(typeof(Discount))]
+        public async Task<IHttpActionResult> PostDiscount(Discount discount)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Orders.Add(order);
+            db.Discounts.Add(discount);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = order.orderId }, order);
+            return CreatedAtRoute("DefaultApi", new { id = discount.discountId }, discount);
         }
 
-        // DELETE: api/Orders/5
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> DeleteOrder(int id)
+        // DELETE: api/Discounts/5
+        [ResponseType(typeof(Discount))]
+        public async Task<IHttpActionResult> DeleteDiscount(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            if (order == null)
+            Discount discount = await db.Discounts.FindAsync(id);
+            if (discount == null)
             {
                 return NotFound();
             }
 
-            db.Orders.Remove(order);
+            db.Discounts.Remove(discount);
             await db.SaveChangesAsync();
 
-            return Ok(order);
+            return Ok(discount);
         }
-        
 
         protected override void Dispose(bool disposing)
         {
@@ -113,9 +112,9 @@ namespace Warehouse.Data.Api.Controllers
             base.Dispose(disposing);
         }
 
-        private bool OrderExists(int id)
+        private bool DiscountExists(int id)
         {
-            return db.Orders.Count(e => e.orderId == id) > 0;
+            return db.Discounts.Count(e => e.discountId == id) > 0;
         }
     }
 }

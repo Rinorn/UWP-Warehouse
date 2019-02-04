@@ -11,7 +11,7 @@ using ModelLibrary.Annotations;
 
 namespace ModelLibrary
 {
-    public class Customer: INotifyPropertyChanged
+    public class Customer
     {
         [Key]
         [Required]
@@ -25,17 +25,10 @@ namespace ModelLibrary
         public int phoneNumber { get; set; }
         [Required]
         public bool isMemeber { get; set; }
-        public virtual List<Category> discounts { get; set; }
+        public virtual List<Discount> discounts { get; set; }
 
         public string FullName { get => $"{firstName} {lastName}"; }
         public string idAsString { get => $"{customerId}"; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

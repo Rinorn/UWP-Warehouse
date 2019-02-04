@@ -16,7 +16,7 @@ namespace Warehouse.Data.Api.Controllers
 {
     public class CustomersController : ApiController
     {
-        private warehouseContext db = new warehouseContext();
+        private WarehouseContext db = new WarehouseContext();
 
         // GET: api/Customers
         public IQueryable<Customer> GetCustomers()
@@ -44,6 +44,16 @@ namespace Warehouse.Data.Api.Controllers
             var query = await (from order in db.Orders
                 where order.Customers.Any(c => c.customerId == customerId)
                 select order).ToListAsync();
+            return Ok(query);
+        }
+
+        [HttpGet()]
+        [Route("api/Customers/{customerId}/Discount")]
+        public async Task<IHttpActionResult> GetDiscount(int customerId)
+        {
+            var query = await (from discount in db.Discounts
+                where discount.hasDiscount.Any(c => c.customerId == customerId)
+                select discount).ToListAsync();
             return Ok(query);
         }
 

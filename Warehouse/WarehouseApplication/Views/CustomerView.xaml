@@ -29,7 +29,7 @@
         </CollectionViewSource>
  
     </Page.Resources>
-    <RelativePanel>
+    <RelativePanel x:Name="RelativePanel">
         <controls:PageHeader 
             x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
             RelativePanel.AlignRightWithPanel="True"
@@ -43,7 +43,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <RelativePanel RelativePanel.RightOf="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True">
+        <RelativePanel RelativePanel.RightOf="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <ListView BorderThickness="1" BorderBrush="Black" x:Name="CustomerIdList" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Customer" >
@@ -65,10 +65,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrderInfoList" RelativePanel.RightOf="OrdersList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProdToOrderViewSource}}" Background="Bisque">
+            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrderInfoList" RelativePanel.RightOf="OrdersList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" ItemsSource="{Binding Source={StaticResource ProdToOrderViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="Black" FontSize="20"  ></TextBlock>
+                        <TextBlock Text="{Binding}" Foreground="Black" FontSize="16"  ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

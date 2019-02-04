@@ -83,7 +83,6 @@ namespace WarehouseApplication.ViewModels
                 if (product.categoryId != catId) continue;
                 selectedProducts.Add(product);
 
-                //selectedProdsItemNumber.Add(product.itemNumber != 0 ? product.itemNumber.ToString() : " ");
             }
         }
         //Removes all objects from selectedProducts. iterates backwards
@@ -92,7 +91,6 @@ namespace WarehouseApplication.ViewModels
             for (var i = selectedProducts.Count - 1; i >= 0; i--)
             {
                 selectedProducts.RemoveAt(i);
-                //selectedProdsItemNumber.RemoveAt(i);
             }
         }
 

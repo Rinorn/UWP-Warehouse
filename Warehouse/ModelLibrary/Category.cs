@@ -11,22 +11,15 @@ using ModelLibrary.Annotations;
 
 namespace ModelLibrary
 {
-    public class Category : INotifyPropertyChanged
+    public class Category
     {
         [Key]
         [Required]
         public int categoryId { get; set; }
         [Required]
         public string name { get; set; }
-        public virtual List<Customer> hasDiscount { get; set; }
         public virtual List<Product> hasProducts { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public string CategoryName => $"{name}";
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

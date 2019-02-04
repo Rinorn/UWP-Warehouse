@@ -31,21 +31,25 @@ namespace WarehouseApplication.Views
         }
 
         private CustomerViewModel model;
-        private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
+        //private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
         public List<long> ordersIdList = new List<long>();
+        public int customerId;
         private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             model = ViewModel;
             model.ClearOrders();
             ordersIdList.Clear();
+            model.ClearCurrentOrderInfoData();
             try
             {
                 Customer customer = (Customer) CustomerList.SelectedItem;
                 if (customer != null)
                 {
                    customer = await DataSource.Customers.Instance.GetCustomersOrders(customer);
+                    customerId = customer.customerId;
                     if (customer.Orders.Count != 0)
                     {
+
                         foreach (Order ord in customer.Orders)
                         {
                             ordersIdList.Add(ord.orderId);
@@ -68,7 +72,7 @@ namespace WarehouseApplication.Views
                 Order order = (Order)OrdersList.SelectedItem;
                 if (order.orderId != 0)
                 {
-                    model.GetOrderInfo(order.orderId);
+                    model.GetOrderInfo(order.orderId, customerId);
                 }
             }  
         }

@@ -9,14 +9,15 @@ using ModelLibrary;
 
 namespace DataAccess
 {
-    public class warehouseContext : DbContext
+    public class WarehouseContext : DbContext
     {
         public virtual DbSet<Category> Categories{ get; set; }
+        public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductToOrder> ProdToOrders { get; set; }
-        public warehouseContext()
+        public WarehouseContext()
         {
             Configuration.ProxyCreationEnabled = false;
             Database.SetInitializer(new WarehouseDBInitializer());

@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="DataSource\Categories.cs" />
     <Compile Include="DataSource\Customers.cs" />
+    <Compile Include="DataSource\Discounts.cs" />
     <Compile Include="DataSource\Orders.cs" />
     <Compile Include="DataSource\Products.cs" />
     <Compile Include="DataSource\ProductsToOrders.cs" />

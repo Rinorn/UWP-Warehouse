@@ -57,5 +57,17 @@ namespace WarehouseApplication.DataSource
             customer.Orders = ordr;
             return customer;
         }
+        public async Task<Customer> GetCustomerDiscounts(Customer customer)
+        {
+            var json = await _client.GetStringAsync($"customers\\{customer.customerId}/discount").ConfigureAwait(false);
+            Discount[] discounts = JsonConvert.DeserializeObject<Discount[]>(json);
+            List<Discount> disc = new List<Discount>();
+            foreach (Discount s in discounts)
+            {
+                disc.Add(s);
+            }
+            customer.discounts = disc;
+            return customer;
+        }
     }
 }

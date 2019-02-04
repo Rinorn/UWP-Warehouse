@@ -64,7 +64,7 @@
             <ListView x:Name="SoldList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="StockList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Product" >
-                        <TextBlock Text="{Binding Path=inStock, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                        <TextBlock Text="{Binding Path=sold, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

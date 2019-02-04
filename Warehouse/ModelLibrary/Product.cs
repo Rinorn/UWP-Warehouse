@@ -16,7 +16,7 @@ namespace ModelLibrary
         public double price { get; set; }
         public int categoryId { get; set; }
         public int inStock { get; set; }
-        public int Sold { get; set; }
+        public int sold { get; set; }
         public virtual List<ProductToOrder> ProductsToOrders { get; set; }
     }
 }

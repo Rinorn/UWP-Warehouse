@@ -16,7 +16,7 @@ namespace Warehouse.Data.Api.Controllers
 {
     public class ProductToOrdersController : ApiController
     {
-        private warehouseContext db = new warehouseContext();
+        private WarehouseContext db = new WarehouseContext();
 
         // GET: api/ProductToOrders
         public IQueryable<ProductToOrder> GetProdToOrders()
