@@ -35,7 +35,7 @@ namespace WarehouseApplication
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // TODO: add your long-running task here
-            await NavigationService.NavigateAsync(typeof(Views.CustomerView));
+            await NavigationService.NavigateAsync(typeof(Views.ProductView));
         }
     }
 }

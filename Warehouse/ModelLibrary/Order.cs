@@ -19,7 +19,7 @@ namespace ModelLibrary
         public long orderId { get; set; }
         public virtual List<Customer> Customers { get; set; }
         public virtual List<ProductToOrder> ProductsToOrders { get; set; }
-        public virtual List<int> Quantity { get; set; }
+        //public virtual List<int> Quantity { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

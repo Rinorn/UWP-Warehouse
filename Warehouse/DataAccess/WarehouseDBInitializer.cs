@@ -101,11 +101,11 @@ namespace DataAccess
                 Customers = new List<Customer>() { johnSnowden },
             });
 
-            var prodToOrder1 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderOne, orderId = orderOne.orderId});
-            var prodToOrder4 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 19, order = orderOne, orderId = orderOne.orderId });
-            var prodToOrder2 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 1, order = orderTwo, orderId = orderTwo.orderId });
-            var prodToOrder3 = context.ProdToOrders.Add(new ProductToOrder() { product = hDog, prodDescription = hDog.description, quantity = 3, order = orderThree, orderId = orderThree.orderId });
-            var prodToOrder5 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderThree, orderId = orderThree.orderId });
+            var prodToOrder1 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderOne, orderId = orderOne.orderId, categoryId = table.categoryId, price = table.price});
+            var prodToOrder4 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 19, order = orderOne, orderId = orderOne.orderId, categoryId = wool.categoryId, price = wool.price });
+            var prodToOrder2 = context.ProdToOrders.Add(new ProductToOrder() { product = wool, prodDescription = wool.description, quantity = 1, order = orderTwo, orderId = orderTwo.orderId, categoryId = wool.categoryId, price = wool.price });
+            var prodToOrder3 = context.ProdToOrders.Add(new ProductToOrder() { product = hDog, prodDescription = hDog.description, quantity = 3, order = orderThree, orderId = orderThree.orderId, categoryId = hDog.categoryId, price = hDog.price });
+            var prodToOrder5 = context.ProdToOrders.Add(new ProductToOrder() { product = table, prodDescription = table.description, quantity = 5, order = orderThree, orderId = orderThree.orderId, categoryId = table.categoryId, price = table.price });
 
 
             base.Seed(context);
