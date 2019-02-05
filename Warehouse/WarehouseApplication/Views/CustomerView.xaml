@@ -1,13 +1,11 @@
 ﻿<Page
     x:Class="WarehouseApplication.Views.CustomerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WarehouseApplication.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewModels="using:WarehouseApplication.ViewModels"
-    xmlns:controls="using:Template10.Controls"
     xmlns:modelLibrary="using:ModelLibrary"
+    xmlns:viewModels="using:WarehouseApplication.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 

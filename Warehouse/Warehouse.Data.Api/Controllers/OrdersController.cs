@@ -1,22 +1,16 @@
-﻿using System;
+﻿using DataAccess;
+using ModelLibrary;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
-using System.Web.Mvc;
-using DataAccess;
-using ModelLibrary;
-using ModelLibrary.Annotations;
-using Newtonsoft.Json;
 
 namespace Warehouse.Data.Api.Controllers
 {
