@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -107,11 +108,8 @@ namespace Warehouse.Data.Api.Controllers
             return Ok(order);
         }
 
-
-
-
-// PUT: api/Orders/5
-[ResponseType(typeof(void))]
+        // PUT: api/Orders/5
+        [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutOrder(int id, Order order)
         {
             if (!ModelState.IsValid)
@@ -146,19 +144,89 @@ namespace Warehouse.Data.Api.Controllers
         }
 
         // POST: api/Orders
-        [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> PostOrder(Order order)
+        [System.Web.Http.HttpPost()]
+        [System.Web.Http.Route("api/Orders/{customerId}")]
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PostOrder(Order order, int customerId)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
+            using (SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString))
+            {
+                List<int> discountCategory = new List<int>();
+                List<double> discountPercentage = new List<double>();
 
-            db.Orders.Add(order);
-            await db.SaveChangesAsync();
+                //Get the customers discounts
+                CustomersController ctrl = new CustomersController();
+                var result = await ctrl.GetDiscount(customerId);
+                if (result is OkNegotiatedContentResult<List<Discount>> returnobjects)
+                {
+                    foreach (var cont in returnobjects.Content)
+                    {
+                        discountCategory.Add(cont.categoryId);
+                        discountPercentage.Add(cont.percentage);
+                    }
+                }
 
-            return CreatedAtRoute("DefaultApi", new { id = order.orderId }, order);
+                //sets the prodToOrder products category in case its not entered.
+                ProductsController prods = new ProductsController();
+                IQueryable<Product> products = prods.GetProducts();
+                foreach (var prod in products)
+                {
+                    foreach (var orderProd in order.ProductsToOrders)
+                    {
+                        if (prod.description.Equals(orderProd.prodDescription))
+                        {
+                            orderProd.categoryId = prod.categoryId;
+                        }
+                    }
+                    
+                }
+                foreach (var prod in order.ProductsToOrders)
+                {
+                    for (int i = 0; i < discountCategory.Count; i++)
+                    {
+                        if (discountCategory[i] == prod.categoryId)
+                        {
+                            prod.discountPercentage = discountPercentage[i];
+                        }
+                    }
+                }
+                //Gets the number of orders in the DB and Sets the new OrderId to be 1+
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [Order]", conn);
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    var dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    List<DataRow> row = dataTable.AsEnumerable().ToList();
+                    foreach (var unit in row)
+                    {
+                        order.orderId = (int)unit[0] + 1;
+                    }
+                    
+                }
+                conn.Close();
+
+                db.Orders.Add(order);
+                await db.SaveChangesAsync();
+
+                //Adds the order-customer relationship to the OrderCustomer table.
+                SqlCommand cmdCust = new SqlCommand("INSERT INTO OrderCustomer VALUES (@customerId, @orderId);", conn);
+                cmdCust.Parameters.AddWithValue("@customerId", customerId);
+                cmdCust.Parameters.AddWithValue("@orderId", order.orderId);
+                conn.Open();
+                await cmdCust.ExecuteNonQueryAsync();
+
+                await db.SaveChangesAsync();
+                return StatusCode(HttpStatusCode.Created);
+            }
         }
+
+
 
         // DELETE: api/Orders/5
         [ResponseType(typeof(Order))]
