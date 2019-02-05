@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ModelLibrary;
+using Template10.Services.NavigationService;
 using WarehouseApplication.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -75,6 +76,19 @@ namespace WarehouseApplication.Views
                     model.GetOrderInfo(order.orderId, customerId);
                 }
             }  
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button clickeButton = (Button) sender;
+            if (clickeButton.Name.Equals("CustProductBtn"))
+            {
+                Frame.Navigate(typeof(Views.ProductView));
+            }
+            else if (clickeButton.Name.Equals("CustCustomerBtn"))
+            {
+                Frame.Navigate(typeof(Views.CustomerView));
+            }
         }
     }
 }

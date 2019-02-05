@@ -41,5 +41,18 @@ namespace WarehouseApplication.Views
             model.SelectProducts(currentCategoryId);
 
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button clickeButton = (Button)sender;
+            if (clickeButton.Name.Equals("CustProductBtn"))
+            {
+                Frame.Navigate(typeof(Views.ProductView));
+            }
+            else if (clickeButton.Name.Equals("CustCustomerBtn"))
+            {
+                Frame.Navigate(typeof(Views.CustomerView));
+            }
+        }
     }
 }

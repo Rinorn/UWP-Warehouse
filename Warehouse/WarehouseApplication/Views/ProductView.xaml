@@ -26,48 +26,78 @@
     </Page.Resources>
 
     <RelativePanel>
-        <controls:PageHeader 
-            x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            RelativePanel.AlignTopWithPanel="True"
-            Text="Character Optimization" >
-        </controls:PageHeader>
-        <ListView BorderThickness="1" BorderBrush="Black" x:Name="CategoryList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CategoryViewSource}}" Background="Bisque" SelectionChanged="OnSelectedItemChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="modelLibrary:Category" >
-                    <TextBlock Text="{Binding Path=CategoryName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <RelativePanel RelativePanel.RightOf="CategoryList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True">
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+        <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="#FFCCCCCC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="250" />
+                <ColumnDefinition Width ="250" />
+                <ColumnDefinition Width ="250" />
+                <ColumnDefinition Width ="Auto" />
+                <ColumnDefinition Width ="Auto" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="250" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Button  x:Name="CustProductBtn" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="40" BorderThickness="1" BorderBrush="Black" Click="ButtonBase_OnClick">
+                <TextBlock Text="Product Info"></TextBlock>
+            </Button>
+            <Button x:Name="CustCustomerBtn" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="40" BorderThickness="1" BorderBrush="Black" Click="ButtonBase_OnClick">
+                <TextBlock Text="Customer Info"></TextBlock>
+            </Button>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Product Category" TextAlignment="Center"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" />
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="2" Grid.Row="1">
+                <TextBlock Text="Product Description" TextAlignment="Center" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="3" Grid.Row="1">
+                <TextBlock Text="Itemnumber" TextAlignment="Center" Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="4" Grid.Row="1">
+                <TextBlock Text="In Stock" TextAlignment="Center" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="5" Grid.Row="1">
+                <TextBlock Text=" Sold" TextAlignment="Center" Grid.Column="4" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <ListView Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Black" x:Name="CategoryList"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CategoryViewSource}}" Background="Bisque" SelectionChanged="OnSelectedItemChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Category" >
+                        <TextBlock Text="{Binding Path=CategoryName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="Black" x:Name="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Product" >
                         <TextBlock  Text="{Binding Path=description, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="ItemNumberList" RelativePanel.RightOf="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+            <ListView Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="Black" x:Name="ItemNumberList" RelativePanel.RightOf="ProdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate >
                     <DataTemplate x:DataType="modelLibrary:Product" >
                         <TextBlock Text="{Binding Path=itemNumber, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView x:Name="StockList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="ItemNumberList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+            <ListView Grid.Row="2" Grid.Column="4" x:Name="StockList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="ItemNumberList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Product" >
                         <TextBlock Text="{Binding Path=inStock, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView x:Name="SoldList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="StockList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
+            <ListView Grid.Row="2" Grid.Column="5" x:Name="SoldList" BorderThickness="1" BorderBrush="Black" RelativePanel.RightOf="StockList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource ProductsViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Product" >
                         <TextBlock Text="{Binding Path=sold, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </RelativePanel>
+        </Grid>
     </RelativePanel>
 </Page>

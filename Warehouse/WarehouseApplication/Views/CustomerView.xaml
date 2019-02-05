@@ -30,48 +30,80 @@
  
     </Page.Resources>
     <RelativePanel x:Name="RelativePanel">
-        <controls:PageHeader 
-            x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
-            RelativePanel.AlignRightWithPanel="True"
-            RelativePanel.AlignTopWithPanel="True"
-            Text="Character Optimization" >
-        </controls:PageHeader>
-        <ListView BorderThickness="1" BorderBrush="Black" x:Name="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque" SelectionChanged="OnSelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="modelLibrary:Customer" >
-                    <TextBlock Text="{Binding Path=FullName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <RelativePanel RelativePanel.RightOf="CustomerList" RelativePanel.Below="PageHeader" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="CustomerIdList" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
+        <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="#FFCCCCCC">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width ="100" />
+                <ColumnDefinition Width ="200" />
+                <ColumnDefinition Width ="200" />
+                <ColumnDefinition Width ="Auto" />
+                <ColumnDefinition Width ="Auto" />
+                <ColumnDefinition Width ="*" />
+                <ColumnDefinition Width ="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Button  x:Name="CustProductBtn" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="40" BorderThickness="1" BorderBrush="Black" Click="ButtonBase_OnClick">
+                <TextBlock Text="Product Info"></TextBlock>
+            </Button>
+            <Button x:Name="CustCustomerBtn" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="40" BorderThickness="1" BorderBrush="Black">
+                <TextBlock Text="Customer Info"></TextBlock>
+            </Button>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
+                <TextBlock Text=" Customer Name" TextAlignment="Center"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20" />
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="2" Grid.Row="1">
+                <TextBlock Text=" ID" TextAlignment="Center" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="3" Grid.Row="1">
+                <TextBlock Text=" Is Member" TextAlignment="Center" Grid.Column="2" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="4" Grid.Row="1">
+                <TextBlock Text=" Order ID" TextAlignment="Center" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <Border BorderThickness="1, 1, 1, 0" BorderBrush="Black" Grid.Column="5" Grid.Row="1">
+                <TextBlock Text=" Order Details" TextAlignment="Center" Grid.Column="4" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="20"/>
+            </Border>
+            <ListView  Grid.Row ="2" Grid.Column="1" BorderThickness="1" BorderBrush="Black" x:Name="CustomerList"  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel ="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque" SelectionChanged="OnSelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="modelLibrary:Customer" >
+                        <TextBlock Text="{Binding Path=FullName, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView  Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="Black" x:Name="CustomerIdList" RelativePanel.AlignBottomWithPanel="True"  RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="modelLibrary:Customer" >
                         <TextBlock  Text="{Binding Path=idAsString, Mode=OneWay}" Foreground="Black" FontSize="20" ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="membershipList" RelativePanel.RightOf="CustomerIdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
+            <ListView Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="Black" x:Name="membershipList" RelativePanel.RightOf="CustomerIdList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource CustomerViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate >
                     <DataTemplate x:DataType="modelLibrary:Customer" >
                         <TextBlock Text="{Binding Path=isMemeber, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrdersList" RelativePanel.RightOf="membershipList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource OrdersViewSource}}" Background="Bisque" SelectionChanged="OnSelectionChanged_OrdersList">
+            <ListView Grid.Row="2" Grid.Column="4" BorderThickness="1" BorderBrush="Black" x:Name="OrdersList" RelativePanel.RightOf="membershipList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" ItemsSource="{Binding Source={StaticResource OrdersViewSource}}" Background="Bisque" SelectionChanged="OnSelectionChanged_OrdersList">
                 <ListView.ItemTemplate >
                     <DataTemplate x:DataType="modelLibrary:Order" >
                         <TextBlock Text="{Binding Path=orderId, Mode=OneWay}" Foreground="Black" FontSize="20"  ></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView BorderThickness="1" BorderBrush="Black" x:Name="OrderInfoList" RelativePanel.RightOf="OrdersList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" ItemsSource="{Binding Source={StaticResource ProdToOrderViewSource}}" Background="Bisque">
+            <ListView Grid.Row="2" Grid.Column="5" BorderThickness="1" BorderBrush="Black" x:Name="OrderInfoList" RelativePanel.RightOf="OrdersList" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignRightWithPanel="True" ItemsSource="{Binding Source={StaticResource ProdToOrderViewSource}}" Background="Bisque">
                 <ListView.ItemTemplate >
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="Black" FontSize="16"  ></TextBlock>
+                        <Viewbox VerticalAlignment="Stretch" >
+                            <TextBlock Text="{Binding}" Foreground="Black" VerticalAlignment="Stretch" ></TextBlock>
+                        </Viewbox>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </RelativePanel>
+        </Grid>
     </RelativePanel>
 </Page>
