@@ -24,7 +24,6 @@
             Source="{x:Bind ViewModel.selectedProducts}">
         </CollectionViewSource>
     </Page.Resources>
-
     <RelativePanel>
         <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="#FFCCCCCC">
             <Grid.ColumnDefinitions>

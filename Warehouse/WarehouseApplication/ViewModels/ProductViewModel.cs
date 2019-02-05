@@ -17,11 +17,9 @@ namespace WarehouseApplication.ViewModels
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
             { }
-
-            
         }
-        ObservableCollection<Category> categories;
 
+        ObservableCollection<Category> categories;
         public ObservableCollection<Category> Categories
         {
             get => categories;
@@ -34,14 +32,13 @@ namespace WarehouseApplication.ViewModels
             get => products;
             set => Set(ref products, value);
         }
+
         // ObservableCollection that holds the products of the selected category for binding purposes.
         public ObservableCollection<Product> selectedProducts = new ObservableCollection<Product>();
 
-        //public ObservableCollection<string> selectedProdsItemNumber = new ObservableCollection<string>();
-
+        //called when a change in viewmodel occurs. Gets the Products and Categorys from the DB
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
-        {
-            
+        { 
             Products = new ObservableCollection<Product>(await DataSource.Products.Instance.GetProducts());
 
             if (Categories == null)
@@ -59,7 +56,8 @@ namespace WarehouseApplication.ViewModels
             args.Cancel = false;
             await Task.CompletedTask;
         }
-        //Gets the catefory id for the selected category
+
+        //Gets the category id for the selected category
         public int DeterminCategoryId(string catName)
         {
             foreach (var cat in Categories)
@@ -71,6 +69,7 @@ namespace WarehouseApplication.ViewModels
             }
             return 0;
         }
+
         //iterates through the Productslist and adds every product that matches the categoryId to the the selectedProductslist
         public void SelectProducts(int catId)
         {
@@ -82,9 +81,9 @@ namespace WarehouseApplication.ViewModels
             {
                 if (product.categoryId != catId) continue;
                 selectedProducts.Add(product);
-
             }
         }
+
         //Removes all objects from selectedProducts. iterates backwards
         public void EmptyCollection()
         {
@@ -93,7 +92,5 @@ namespace WarehouseApplication.ViewModels
                 selectedProducts.RemoveAt(i);
             }
         }
-
-
     }
 }

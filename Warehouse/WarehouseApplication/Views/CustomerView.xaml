@@ -27,7 +27,6 @@
             x:Name="ProdToOrderViewSource"
             Source="{x:Bind ViewModel.dataAsString}">
         </CollectionViewSource>
- 
     </Page.Resources>
     <RelativePanel x:Name="RelativePanel">
         <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="#FFCCCCCC">

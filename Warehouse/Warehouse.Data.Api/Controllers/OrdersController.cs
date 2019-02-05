@@ -31,20 +31,23 @@ namespace Warehouse.Data.Api.Controllers
         }
 
         // GET: api/Orders/5
+        //This should be split into functions for: Getting customerId of the spesified order, Get the customers discount information, Get the order information
+        [System.Web.Http.HttpGet()]
+        [System.Web.Http.Route("api/Orders/{orderId}")]
         [ResponseType(typeof(Order))]
-        public async Task<IHttpActionResult> GetOrder(int id)
+        public async Task<IHttpActionResult> GetOrder(int orderId)
         {
             Order order = new Order();
             List<int> discountCategory = new List<int>();
             List<double> discountPercentage = new List<double>();
-            order = await db.Orders.FindAsync(id);
+            order = await db.Orders.FindAsync(orderId);
             using (SqlConnection conn = new SqlConnection(db.Database.Connection.ConnectionString))
             {
                 int customerId;
 
                 //Get the customerId for the spesified order
                 SqlCommand cmdCust = new SqlCommand("Select customerId from OrderCustomer where orderId=(@id)", conn);
-                cmdCust.Parameters.AddWithValue("@id", id);
+                cmdCust.Parameters.AddWithValue("@id", orderId);
                 conn.Open();
                 using (SqlDataReader reader = cmdCust.ExecuteReader())
                 {
@@ -66,11 +69,24 @@ namespace Warehouse.Data.Api.Controllers
                         discountPercentage.Add(cont.percentage);
                     }
                 }
-                conn.Close();
+                Customer cust = new Customer();
+                result = await ctrl.GetCustomer(customerId);
+                if (result is OkNegotiatedContentResult<Customer> CustObject)
+                {
+                   cust = CustObject.Content;
+                }
                 
+                //Adds the customer to order
+                if (order != null)
+                {
+                    order.Customers = new List<Customer>();
+                    order.Customers.Add(cust); 
+                }
+                conn.Close();
+
                 //Get the orderInformation for the spesified order
                 SqlCommand cmd = new SqlCommand("Select * from ProdToOrder where orderId=(@id)", conn);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", orderId);
                 conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -97,7 +113,6 @@ namespace Warehouse.Data.Api.Controllers
                         order.ProductsToOrders.Add(prod);
                     }
                 }
-
                 await cmd.ExecuteNonQueryAsync();
             }
             if (order == null)
@@ -144,6 +159,7 @@ namespace Warehouse.Data.Api.Controllers
         }
 
         // POST: api/Orders
+        //This should be split into the seperate functions
         [System.Web.Http.HttpPost()]
         [System.Web.Http.Route("api/Orders/{customerId}")]
         [ResponseType(typeof(void))]
@@ -181,9 +197,9 @@ namespace Warehouse.Data.Api.Controllers
                         if (prod.description.Equals(orderProd.prodDescription))
                         {
                             orderProd.categoryId = prod.categoryId;
+                            orderProd.price = prod.price;
                         }
                     }
-                    
                 }
                 foreach (var prod in order.ProductsToOrders)
                 {
@@ -195,6 +211,7 @@ namespace Warehouse.Data.Api.Controllers
                         }
                     }
                 }
+
                 //Gets the number of orders in the DB and Sets the new OrderId to be 1+
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [Order]", conn);
                 conn.Open();
@@ -206,8 +223,7 @@ namespace Warehouse.Data.Api.Controllers
                     foreach (var unit in row)
                     {
                         order.orderId = (int)unit[0] + 1;
-                    }
-                    
+                    } 
                 }
                 conn.Close();
 
@@ -226,8 +242,6 @@ namespace Warehouse.Data.Api.Controllers
             }
         }
 
-
-
         // DELETE: api/Orders/5
         [ResponseType(typeof(Order))]
         public async Task<IHttpActionResult> DeleteOrder(int id)
@@ -244,7 +258,6 @@ namespace Warehouse.Data.Api.Controllers
             return Ok(order);
         }
         
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

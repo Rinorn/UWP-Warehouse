@@ -24,7 +24,7 @@ namespace WarehouseApplication.DataSource
         private readonly HttpClient _client;
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="CharacterClasses"/> class from being created.
+        /// Prevents a default instance of the <see cref="Orders"/> class from being created.
         /// </summary>
         private Orders()
         {
@@ -35,7 +35,7 @@ namespace WarehouseApplication.DataSource
         }
 
         /// <summary>
-        /// Gets the character classes.
+        /// Gets the Orders.
         /// </summary>
         /// <returns></returns>
         public async Task<Order[]> GetOrders()
@@ -45,6 +45,10 @@ namespace WarehouseApplication.DataSource
             return orders;
         }
 
+        /// <summary>
+        /// Gets the Customer that Orders the selected order.
+        /// </summary>
+        /// <returns></returns>
         public async Task<Order> GetOrdersCustomer(Order order)
         {
             var json = await _client.GetStringAsync($"orders\\{order.orderId}/customer").ConfigureAwait(false);

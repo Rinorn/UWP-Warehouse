@@ -24,7 +24,7 @@ namespace WarehouseApplication.DataSource
         private readonly HttpClient _client;
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="CharacterClasses"/> class from being created.
+        /// Prevents a default instance of the <see cref="ProductsToOrders"/> class from being created.
         /// </summary>
         private ProductsToOrders()
         {
@@ -35,7 +35,7 @@ namespace WarehouseApplication.DataSource
         }
 
         /// <summary>
-        /// Gets the character classes.
+        /// Gets the ProductsToOrders
         /// </summary>
         /// <returns></returns>
         public async Task<ProductToOrder[]> GetProductsToOrders()

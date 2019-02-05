@@ -37,6 +37,7 @@ namespace Warehouse.Data.Api.Controllers
             return Ok(customer);
         }
 
+        //Get the customers orders
         [HttpGet()]
         [Route("api/Customers/{customerId}/Order")]
         public async Task<IHttpActionResult> GetOrders(int customerId)
@@ -47,6 +48,7 @@ namespace Warehouse.Data.Api.Controllers
             return Ok(query);
         }
 
+        //Gets the customers discounts
         [HttpGet()]
         [Route("api/Customers/{customerId}/Discount")]
         public async Task<IHttpActionResult> GetDiscount(int customerId)

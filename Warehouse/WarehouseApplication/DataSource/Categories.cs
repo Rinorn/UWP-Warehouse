@@ -24,7 +24,7 @@ namespace WarehouseApplication.DataSource
         private readonly HttpClient _client;
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="CharacterClasses"/> class from being created.
+        /// Prevents a default instance of the <see cref="Categories"/> class from being created.
         /// </summary>
         private Categories()
         {
@@ -35,7 +35,7 @@ namespace WarehouseApplication.DataSource
         }
 
         /// <summary>
-        /// Gets the character classes.
+        /// Gets the Categories.
         /// </summary>
         /// <returns></returns>
         public async Task<Category[]> GetCategories()
@@ -44,6 +44,5 @@ namespace WarehouseApplication.DataSource
             var categories = JsonConvert.DeserializeObject<Category[]>(json);
             return categories;
         }
-
     }
 }

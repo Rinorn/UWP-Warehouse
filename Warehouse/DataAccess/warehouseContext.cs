@@ -17,20 +17,20 @@ namespace DataAccess
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<ProductToOrder> ProdToOrders { get; set; }
+
         public WarehouseContext()
         {
             Configuration.ProxyCreationEnabled = false;
             Database.SetInitializer(new WarehouseDBInitializer());
         }
 
+        //lets you map relations to databases
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Handle cycles by not traversing relations
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            // Control how the mapping between Authors and Books are handled
-
-
+            // Control how the mapping between DB tables
             modelBuilder.Entity<ProductToOrder>()
                 .HasKey(um => um.prodToOrderId)
                 .ToTable("ProdToOrder");
@@ -52,7 +52,6 @@ namespace DataAccess
                     m.MapLeftKey("customerId");
                     m.MapRightKey("orderId");
                 });
-            
         }
     }
 }

@@ -12,6 +12,7 @@ namespace ModelLibrary
         [Key]
         [Required]
         public string description { get; set; }
+        //the ? indicates that the variable can be Null
         public int? itemNumber { get; set; }
         public double price { get; set; }
         public int categoryId { get; set; }
